@@ -18,15 +18,15 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>70</y>
+      <y>50</y>
       <width>681</width>
-      <height>611</height>
+      <height>621</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Times New Roman</family>
-      <pointsize>9</pointsize>
+      <pointsize>18</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -42,7 +42,7 @@
     </property>
     <property name="styleSheet">
      <string notr="true">Bold;
-</string>
+font: 18pt;</string>
     </property>
     <property name="gridVisible">
      <bool>true</bool>
@@ -76,7 +76,7 @@ color: white;
 </string>
     </property>
     <property name="text">
-     <string>        LỊCH CÁ NHÂN</string>
+     <string>                        LỊCH CÁ NHÂN</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -90,7 +90,6 @@ color: white;
     </property>
     <property name="font">
      <font>
-      <family>Times New Roman</family>
       <pointsize>13</pointsize>
      </font>
     </property>
@@ -98,16 +97,17 @@ color: white;
      <string notr="true">font-size: 13pt;
 background:#FAFAD2;
 color: write;
+bold;
 </string>
     </property>
     <property name="text">
-     <string>KẾ HOẠCH TRONG NGÀY</string>
+     <string>  KẾ HOẠCH TRONG NGÀY</string>
     </property>
    </widget>
    <widget class="QPushButton" name="addButton">
     <property name="geometry">
      <rect>
-      <x>920</x>
+      <x>910</x>
       <y>530</y>
       <width>91</width>
       <height>51</height>
@@ -132,7 +132,7 @@ color: write;
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>100</y>
+      <y>90</y>
       <width>91</width>
       <height>581</height>
      </rect>
@@ -147,8 +147,8 @@ color: write;
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>720</x>
-      <y>66</y>
+      <x>730</x>
+      <y>70</y>
       <width>241</width>
       <height>20</height>
      </rect>
@@ -157,7 +157,7 @@ color: write;
      <string notr="true">font: 10pt</string>
     </property>
     <property name="text">
-     <string>CHỌN MỘT NGÀY</string>
+     <string>CHỌN NGÀY</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_5">
