@@ -1,20 +1,21 @@
 import sqlite3
 
 from PyQt5.QtWidgets import QWidget, QApplication, QListWidgetItem, QMessageBox,QMainWindow,QLabel,QTimeEdit
-from PyQt5.QtCore import QTime
+from PyQt5.QtCore import QTime,Qt
 from PyQt5.uic import loadUi
 import sys
 
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QPushButton, QGridLayout, QVBoxLayout, QLineEdit
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
+from PyQt5.QtGui import QFont
 
 
 class RegisterWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Đăng ký")
-        self.setGeometry(200, 200, 300, 150)
+        self.setGeometry(750, 400, 500, 350)
         self.error_message = QLabel()
         self.error_message.setStyleSheet("color: red")
 
@@ -27,12 +28,24 @@ class RegisterWindow(QWidget):
         self.password_textbox.setEchoMode(QLineEdit.Password)
         self.register_button = QPushButton("Đăng ký")
         self.register_button.clicked.connect(self.register)
+        font=QFont()
+        font.setPointSize(12)
+        self.username_label.setFont(font)
+        self.username_textbox.setFont(font)
+        self.password_label.setFont(font)
+        self.password_textbox.setFont(font)
+        self.register_button.setFont(font)
 
-        layout.addWidget(self.username_label)
+        self.setStyleSheet("background-color: #F0F0F0;")
+        self.username_textbox.setStyleSheet("background-color: #FFFFFF;")
+        self.password_textbox.setStyleSheet("background-color: #FFFFFF:")
+        self.register_button.setStyleSheet("background-color: #4CAF50; color: white;")
+
+        layout.addWidget(self.username_label,alignment =Qt.AlignHCenter)
         layout.addWidget(self.username_textbox)
-        layout.addWidget(self.password_label)
+        layout.addWidget(self.password_label,alignment =Qt.AlignHCenter)
         layout.addWidget(self.password_textbox)
-        layout.addWidget(self.register_button)
+        layout.addWidget(self.register_button,alignment =Qt.AlignHCenter)
         layout.addWidget(self.error_message)
 
         self.setLayout(layout)
@@ -70,9 +83,7 @@ class LoginWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Đăng nhập")
-        self.setGeometry(200, 200, 300, 150)
-        self.error_message = QLabel()
-        self.error_message.setStyleSheet("color: red")
+        self.setGeometry(750, 400, 500, 350)
 
         layout = QVBoxLayout()
 
@@ -85,13 +96,30 @@ class LoginWindow(QWidget):
         self.login_button.clicked.connect(self.login)
         self.register_button = QPushButton("Đăng ký")
         self.register_button.clicked.connect(self.show_register_window)
+        self.error_message =QLabel()
+        self.error_message.setStyleSheet("color:red")
 
-        layout.addWidget(self.username_label)
+        self.login_button.setStyleSheet("background-color: #0033CC; color:white;")
+        self.setStyleSheet("background-color: #F0F0F0;")
+        self.username_textbox.setStyleSheet("background-color: #FFFFFF;")
+        self.password_textbox.setStyleSheet("background-color: #FFFFFF:")
+        self.register_button.setStyleSheet("background-color: #4CAF50; color: white;")
+        font = QFont()
+        font.setPointSize(12)
+
+        self.username_label.setFont(font)
+        self.username_textbox.setFont(font)
+        self.password_label.setFont(font)
+        self.password_textbox.setFont(font)
+        self.login_button.setFont(font)
+        self.register_button.setFont(font)
+
+        layout.addWidget(self.username_label,alignment =Qt.AlignHCenter)
         layout.addWidget(self.username_textbox)
-        layout.addWidget(self.password_label)
+        layout.addWidget(self.password_label,alignment =Qt.AlignHCenter)
         layout.addWidget(self.password_textbox)
-        layout.addWidget(self.login_button)
-        layout.addWidget(self.register_button)
+        layout.addWidget(self.login_button,alignment =Qt.AlignHCenter)
+        layout.addWidget(self.register_button,alignment =Qt.AlignHCenter)
         layout.addWidget(self.error_message)
 
         self.setLayout(layout)
@@ -152,7 +180,7 @@ class Window(QMainWindow):
         query = "SELECT task, completed FROM tasks WHERE date = ? AND username = ?"
         row = (date, self.username)
         results = cursor.execute(query, row).fetchall()
-        print(results)
+
         for result in results:
             item = QListWidgetItem(str(result[0]))
             item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
