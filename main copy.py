@@ -166,6 +166,9 @@ class Window(QMainWindow):
     def __init__(self, username):
         super(Window, self).__init__()
         loadUi("UI.ui", self)
+        self.setFixedSize(1020, 800)
+        self.move(300, 0)
+
         self.label = self.findChild(QLabel, "label")
 
         self.username = username
