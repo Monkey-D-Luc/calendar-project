@@ -10,7 +10,6 @@ from PyQt5.QtWidgets import QPushButton, QGridLayout, QVBoxLayout, QLineEdit
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 from PyQt5.QtGui import QFont
 
-
 class RegisterWindow(QWidget):
     def __init__(self):
         super().__init__()
@@ -18,6 +17,7 @@ class RegisterWindow(QWidget):
         self.setGeometry(750, 400, 500, 350)
         self.error_message = QLabel()
         self.error_message.setStyleSheet("color: red")
+        self.loginWindow = LoginWindow()
 
         layout = QVBoxLayout()
 
@@ -40,7 +40,10 @@ class RegisterWindow(QWidget):
         self.username_textbox.setStyleSheet("background-color: #FFFFFF;")
         self.password_textbox.setStyleSheet("background-color: #FFFFFF:")
         self.register_button.setStyleSheet("background-color: #4CAF50; color: white;")
+        self.back_button = QPushButton("Quay lại")
+        self.back_button.clicked.connect(self.BackToLogin)
 
+        layout.addWidget(self.back_button)
         layout.addWidget(self.username_label,alignment =Qt.AlignHCenter)
         layout.addWidget(self.username_textbox)
         layout.addWidget(self.password_label,alignment =Qt.AlignHCenter)
@@ -77,6 +80,12 @@ class RegisterWindow(QWidget):
         query.bindValue(0, username)
         query.bindValue(1, password)
         query.exec_()
+
+
+    def BackToLogin(self):
+        self.close()
+        self.loginWindow = LoginWindow()
+        self.loginWindow.show()
 
 
 class LoginWindow(QWidget):
@@ -139,7 +148,7 @@ class LoginWindow(QWidget):
             self.error_message.setText("Hãy điền vào tất cả các trường.")
 
     def show_register_window(self):
-        self.hide()
+        self.close()
         self.register_window = RegisterWindow()
         self.register_window.show()
 
