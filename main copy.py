@@ -1,7 +1,7 @@
 import sqlite3
 
 from PyQt5.QtWidgets import QWidget, QApplication, QListWidgetItem, QMessageBox,QMainWindow,QLabel,QTimeEdit
-from PyQt5.QtCore import QTime,Qt
+from PyQt5.QtCore import QTime,Qt, QDate, QDateTime
 from PyQt5.uic import loadUi
 import sys
 
@@ -146,7 +146,7 @@ class LoginWindow(QWidget):
         windowLayout.addWidget(frame)
         layout = QVBoxLayout(frame)
 
-        self.username_label = QLabel("Tên người dùng:")
+        self.username_label = QLabel("Tên đăng nhập:")
         self.username_textbox = QLineEdit()
         self.password_label = QLabel("Mật khẩu:")
         self.password_textbox = QLineEdit()
@@ -158,9 +158,9 @@ class LoginWindow(QWidget):
         self.error_message =QLabel()
         self.error_message.setStyleSheet("background-color: none; color: yellow; font-size: 20px;")
 
-        self.login_button.setStyleSheet("background-color: #0033CC; color:white; margin-top: 50px; height: 50px;")
+        self.login_button.setStyleSheet("background-color: #0033CC; color:white; margin-top: 30px; height: 50px;")
         self.setStyleSheet("background-color: #F0F0F0;")
-        self.username_textbox.setStyleSheet("background-color: #FFFFFF; height: 40px;")
+        self.username_textbox.setStyleSheet("background-color: #FFFFFF; height: 40px; margin-top: 10px;")
         self.password_textbox.setStyleSheet("background-color: #FFFFFF; height: 40px;")
         self.register_button.setStyleSheet("background-color: #4CAF50; color: white; height: 50px;")
         self.username_label.setStyleSheet("background-color: none")
