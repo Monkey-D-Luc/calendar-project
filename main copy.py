@@ -14,7 +14,7 @@ class RegisterWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Đăng ký")
-        self.setGeometry(750, 400, 500, 350)
+        self.setGeometry(550, 300, 500, 350)
         self.setFixedSize(500, 350)
         
         self.error_message = QLabel()
@@ -137,7 +137,7 @@ class LoginWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Đăng nhập")
-        self.setGeometry(750, 400, 500, 350)
+        self.setGeometry(550, 300, 500, 350)
         self.setFixedSize(500, 400)
 
         windowLayout = QVBoxLayout()
