@@ -76,7 +76,10 @@ color: white;
 </string>
     </property>
     <property name="text">
-     <string>                        LỊCH CÁ NHÂN</string>
+     <string>LỊCH CÁ NHÂN</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -90,11 +93,11 @@ color: white;
     </property>
     <property name="font">
      <font>
-      <pointsize>13</pointsize>
+      <pointsize>17</pointsize>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">font-size: 13pt;
+     <string notr="true">font-size: 17pt;
 background:#FAFAD2;
 color: write;
 bold;
@@ -102,6 +105,9 @@ bold;
     </property>
     <property name="text">
      <string>  KẾ HOẠCH TRONG NGÀY</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QPushButton" name="addButton">
@@ -132,9 +138,9 @@ bold;
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>90</y>
-      <width>91</width>
-      <height>581</height>
+      <y>83</y>
+      <width>85</width>
+      <height>589</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -154,10 +160,13 @@ bold;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 10pt</string>
+     <string notr="true">font: 13pt</string>
     </property>
     <property name="text">
      <string>CHỌN NGÀY</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="label_5">
@@ -246,7 +255,7 @@ bold;
      <x>0</x>
      <y>0</y>
      <width>1025</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSeTTime">
