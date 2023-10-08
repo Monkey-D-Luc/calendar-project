@@ -1,17 +1,37 @@
 import sqlite3
 
-from PyQt5.QtWidgets import QWidget, QApplication, QListWidgetItem, QMessageBox,QMainWindow,QLabel,QTimeEdit
-from PyQt5.QtCore import QTimer,Qt, QDate, QDateTime
-from PyQt5 import QtGui
+from PyQt5.QtWidgets import QWidget, QApplication, QListWidgetItem, QMessageBox,QMainWindow,QLabel,QTimeEdit, QAction, QMenu, QPushButton, QGridLayout, QVBoxLayout, QHBoxLayout, QLineEdit, QFrame
+from PyQt5.QtCore import QTimer,Qt, QDate, QDateTime, QSize
+from PyQt5.QtGui import QIcon, QFont, QLinearGradient, QColor, QPainter
 from PyQt5.uic import loadUi
+from PyQt5.QtSql import QSqlDatabase, QSqlQuery
+from PyQt5 import QtGui
+from PyQt5 import QtCore
+from datetime import datetime
+
+from Window import AccoutInfoWindow, PlanWindow
+
 import sys
 
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import QPushButton, QGridLayout, QVBoxLayout, QHBoxLayout, QLineEdit, QFrame
-from PyQt5.QtSql import QSqlDatabase, QSqlQuery
-from PyQt5.QtGui import QFont, QLinearGradient, QColor, QPainter
 
-from datetime import datetime
+styleSheet = '''
+#Drop{
+    color: white;
+
+}
+#Drop:hover{
+    background-color: #636e72;
+}
+#MenuD{
+    background-color: black;
+    color: white;
+    font-size: 30px;
+}
+#MenuD:selected{
+    background-color: #636e72;
+}
+
+'''
 
 class RegisterWindow(QWidget):
     def __init__(self):
@@ -30,6 +50,7 @@ class RegisterWindow(QWidget):
         self.username_textbox = QLineEdit()
         self.password_label = QLabel("Mật khẩu:")
         self.password_textbox = QLineEdit()
+        self.password_textbox.setText("Mật khẩu")
         self.password_textbox.setEchoMode(QLineEdit.Password)
         self.fullname_label = QLabel("Họ và tên:")
         self.fullname_textbox = QLineEdit()
@@ -238,11 +259,15 @@ class Window(QMainWindow):
         self.setWindowIcon(QtGui.QIcon('logo.png'))
         self.label = self.findChild(QLabel, "label")
         self.username = username
-
+        
         self.calendarWidget.selectionChanged.connect(self.calendarDateChanged)
         self.calendarDateChanged()
         self.saveButton.clicked.connect(self.saveChanges)
         self.addButton.clicked.connect(self.addNewTask)
+
+        self.initMenu()
+        self.plan_window = PlanWindow(self)
+        self.accout_info_window = AccoutInfoWindow(self)
 
         self.Notification()
         self.timer = QTimer(self)
@@ -250,6 +275,9 @@ class Window(QMainWindow):
         self.timer.setInterval(60000)
         self.timer.timeout.connect(self.Notification)
         self.timer.start()
+
+    def GetUsername(self):
+        return self.username
 
     def calendarDateChanged(self):
         dateSelected = self.calendarWidget.selectedDate().toPyDate().strftime("%d-%m-%y")
@@ -314,6 +342,37 @@ class Window(QMainWindow):
         self.updateTaskList(date)
         self.taskLineEdit.clear()
 
+    def initMenu(self):
+        # Tạo nút
+        self.button = QPushButton( self)
+        self.button.move(10, 20)
+        self.button.setStyleSheet('border: 0px')
+        self.button.setIcon(QIcon("menu.png"))
+        self.button.setIconSize(QSize(50, 50))
+        self.button.setObjectName("Drop")
+        self.button.adjustSize()
+
+        self.menu = Menu()
+        self.menu.setObjectName("MenuD")
+
+        action1 = QAction("Kế hoạch chung", self)
+        action2 = QAction("Thông tin tài khoản", self)
+        action1.triggered.connect(self.LoadPlanWindow)
+        action2.triggered.connect(self.LoadAccoutInfoWindow)
+        actions = {action1, action2}
+        self.menu.addActions(actions)
+
+        self.button.setMenu(self.menu)
+
+    def LoadPlanWindow(self):
+        self.hide()
+        self.plan_window.show()
+
+
+    def LoadAccoutInfoWindow(self):
+        self.hide()
+        self.accout_info_window.show()
+        
     def Notification(self):
         db = sqlite3.connect("data.db")
         cursor = db.cursor()
@@ -334,8 +393,18 @@ class Window(QMainWindow):
                 msg.setIcon(QMessageBox.Information)
                 x = msg.exec_()
 
+class Menu(QMenu):
+    def __init__(self):
+        super().__init__()
+    
+    def AddAction(self, actions):
+        for action in actions:
+            action.setObjectName("MenuD")
+            self.addAction(action)
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    app.setStyleSheet(styleSheet)
 
     # Kết nối tới cơ sở dữ liệu SQLite
     database = QSqlDatabase.addDatabase("QSQLITE")
