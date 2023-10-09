@@ -9,7 +9,7 @@ from PyQt5 import QtGui
 from PyQt5 import QtCore
 from datetime import datetime
 
-from Window import AccountInfoWindow, PlanWindow
+from ExtraWindow import AccountInfoWindow, PlanWindow
 
 import sys
 
@@ -32,6 +32,17 @@ styleSheet = '''
 }
 #AccoutInfoBtn{
     font-size: 20px; height: 40px; width: 200px; margin-right: 100px;
+}
+#CPTextBox{
+    height: 30px;
+    margin-bottom: 30px;
+}
+#CPLabel{
+    margin-bottom: 30px;
+}
+#CPBtn{
+    height: 40px;
+    font-size: 30px;
 }
 
 '''

@@ -1,8 +1,9 @@
 import sqlite3
 
 from PyQt5 import QtGui
-from PyQt5.QtWidgets import QMainWindow, QPushButton, QWidget, QGridLayout,QLabel, QLineEdit, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QPushButton, QWidget, QGridLayout, QHBoxLayout, QLabel, QLineEdit, QMessageBox
 from PyQt5.QtGui import QFont, QIcon
+from PyQt5.QtCore import Qt
 
 class ExtraWindow(QMainWindow):
     def __init__(self, parent):
@@ -128,7 +129,7 @@ class AccountInfoWindow(ExtraWindow):
         QMessageBox.information(self.parent, "Thông báo", "Thay đổi đã được lưu")
 
     def ChangePassword(self):
-        self.changeWindow = ChangePasswordWindow()
+        self.changeWindow = ChangePasswordWindow(self.parent.GetUsername())
         self.changeWindow.show()
         
 class PlanWindow(ExtraWindow):
@@ -137,13 +138,16 @@ class PlanWindow(ExtraWindow):
         self.setWindowTitle("Kế hoạch chung")
 
 class ChangePasswordWindow(QWidget):
-    def __init__(self):
+    def __init__(self, username):
         super().__init__()
+        self.username = username
         self.InitUI()
 
     def InitUI(self):
         self.move(500, 300)
         self.setFixedSize(500, 300)
+        self.setWindowIcon(QIcon("logo.png"))
+        self.setWindowTitle("Thay đổi mật khẩu")
         layout = QGridLayout()
         self.old_password_label = QLabel("Mật khẩu cũ: ")
         self.new_password_label = QLabel("Mật khẩu mới")
@@ -156,10 +160,75 @@ class ChangePasswordWindow(QWidget):
         self.new_password_textbox.setEchoMode(QLineEdit.Password)
         self.retype_textbox.setEchoMode(QLineEdit.Password)
 
+        self.old_password_label.setObjectName("CPLabel")
+        self.new_password_label.setObjectName("CPLabel")
+        self.retype_label.setObjectName("CPLabel")
+        self.old_password_textbox.setObjectName("CPTextBox")
+        self.new_password_textbox.setObjectName("CPTextBox")
+        self.retype_textbox.setObjectName("CPTextBox")
+
+        self.error_message = QLabel()
+        self.error_message.setStyleSheet("color: red;")
+
+        self.cancel_btn = QPushButton("Huỷ")
+        self.confirm_btn = QPushButton("Xác nhận")
+
+        self.cancel_btn.setFixedSize(120, 40)
+        self.confirm_btn.setFixedSize(120, 40)
+        self.cancel_btn.setObjectName("QPBtn")
+        self.confirm_btn.setObjectName("QPBtn")
+
+        self.cancel_btn.clicked.connect(self.close)
+        self.confirm_btn.clicked.connect(self.SaveChange)
+        
+
+        font = QFont("Arial", 10)
+        
+        self.old_password_label.setFont(font)
+        self.new_password_label.setFont(font)
+        self.retype_label.setFont(font)
+        self.cancel_btn.setFont(font)
+        self.confirm_btn.setFont(font)
+        self.error_message.setFont(font)
+
+
+        hbox = QHBoxLayout()
+        hbox.addWidget(self.cancel_btn, 0, Qt.AlignRight)
+        hbox.addWidget(self.confirm_btn, 0, Qt.AlignRight)
+
         layout.addWidget(self.old_password_label, 0, 0)
         layout.addWidget(self.old_password_textbox, 0, 1)
         layout.addWidget(self.new_password_label, 1, 0)
         layout.addWidget(self.new_password_textbox, 1, 1)
         layout.addWidget(self.retype_label, 2, 0)
         layout.addWidget(self.retype_textbox, 2, 1)
+        layout.addWidget(self.error_message,3, 1, Qt.AlignRight)
+        layout.addLayout(hbox, 4, 1)
+        
         self.setLayout(layout)
+    
+    def SaveChange(self):
+        db = sqlite3.connect("data.db")
+        cursor = db.cursor()
+
+        oldPassword = self.old_password_textbox.text()
+        newPassword = self.new_password_textbox.text()
+        retypePassword = self.retype_textbox.text()
+
+        if oldPassword and newPassword and retypePassword:
+            query = "SELECT password FROM accounts WHERE username = ?"
+            row = (self.username)
+            oldPasswordInDB = cursor.execute(query, row).fetchone()[0]
+            if oldPassword != oldPasswordInDB:
+                self.error_message.setText("Mật khẩu cũ không chính xác!")
+            elif retypePassword == newPassword:
+                query = "UPDATE accounts SET password = ? WHERE username = ?"
+                row = (newPassword, self.username)
+                cursor.execute(query, row)
+                db.commit()
+                QMessageBox.information(self, "Thành công", "Thay đổi mật khẩu thành công")
+                self.close()
+            else:
+                self.error_message.setText("Mật khẩu không trùng khớp!")
+        else:
+            self.error_message.setText("Hãy nhập đầy đủ các trường")
