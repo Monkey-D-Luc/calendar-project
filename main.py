@@ -9,7 +9,7 @@ from PyQt5 import QtGui
 from PyQt5 import QtCore
 from datetime import datetime
 
-from Window import AccoutInfoWindow, PlanWindow
+from Window import AccountInfoWindow, PlanWindow
 
 import sys
 
@@ -29,6 +29,9 @@ styleSheet = '''
 }
 #MenuD:selected{
     background-color: #636e72;
+}
+#AccoutInfoBtn{
+    font-size: 20px; height: 40px; width: 200px; margin-right: 100px;
 }
 
 '''
@@ -267,7 +270,7 @@ class Window(QMainWindow):
 
         self.initMenu()
         self.plan_window = PlanWindow(self)
-        self.accout_info_window = AccoutInfoWindow(self)
+        self.accout_info_window = AccountInfoWindow(self)
 
         self.Notification()
         self.timer = QTimer(self)
