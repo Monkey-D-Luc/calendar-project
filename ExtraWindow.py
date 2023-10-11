@@ -133,16 +133,16 @@ class PlanWindow(ExtraWindow):
         self.InitUI()
 
     def InitUI(self):
-        self.addtasks_btn = QPushButton("Thêm kế hoạch", self)
-        self.addtasks_btn.clicked.connect(self.OpenAddTasksWindow)
+        self.change_tasks_btn = QPushButton("Chỉnh sửa", self)
+        self.change_tasks_btn.clicked.connect(self.ChangeTasksWindow)
 
         self.back_btn.setObjectName("PBtn")
-        self.addtasks_btn.setObjectName("PBtn")
+        self.change_tasks_btn.setObjectName("PBtn")
 
         self.back_btn.move(50, 50)
-        self.addtasks_btn.move(300, 50)
+        self.change_tasks_btn.move(300, 50)
         self.back_btn.resize(150, 50)
-        self.addtasks_btn.resize(150, 50)
+        self.change_tasks_btn.resize(150, 50)
 
         
         scroll_area = QScrollArea(self)
@@ -166,9 +166,9 @@ class PlanWindow(ExtraWindow):
 
         scroll_area.setWidget(scroll_content)
 
-    def OpenAddTasksWindow(self):
+    def ChangeTasksWindow(self):
         self.hide()
-        self.addTasksWindow = AddTasksWindow(self)
+        self.addTasksWindow = ChangeTasksWindow(self)
         self.addTasksWindow.show()
 
     def create_task_label(self, date, tasks):
@@ -308,11 +308,11 @@ class ChangePasswordWindow(QWidget):
         else:
             self.error_message.setText("Hãy nhập đầy đủ các trường")
 
-class AddTasksWindow(QMainWindow):
+class ChangeTasksWindow(QMainWindow):
     def __init__(self, previusWindow):
         super().__init__()
         self.setWindowTitle("Add Tasks")
-        self.setGeometry(100, 100, 400, 400)
+        self.setGeometry(650, 250, 400, 400)
 
         self.previusWindow = previusWindow
         
