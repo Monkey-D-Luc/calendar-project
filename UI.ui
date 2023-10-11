@@ -2,32 +2,54 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1025</width>
-    <height>753</height>
+    <width>1280</width>
+    <height>701</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <kerning>true</kerning>
+   </font>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="accessibleDescription">
+   <string/>
+  </property>
+  <property name="layoutDirection">
+   <enum>Qt::LeftToRight</enum>
+  </property>
+  <property name="autoFillBackground">
+   <bool>true</bool>
+  </property>
+  <property name="inputMethodHints">
+   <set>Qt::ImhNone</set>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
    <widget class="QCalendarWidget" name="calendarWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>0</x>
       <y>50</y>
-      <width>681</width>
-      <height>621</height>
+      <width>731</width>
+      <height>651</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Times New Roman</family>
       <pointsize>18</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -63,9 +85,9 @@ font: 18pt;</string>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>0</x>
       <y>0</y>
-      <width>681</width>
+      <width>731</width>
       <height>51</height>
      </rect>
     </property>
@@ -76,7 +98,7 @@ color: white;
 </string>
     </property>
     <property name="text">
-     <string>LỊCH CÁ NHÂN</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;LỊCH CÁ NHÂN&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -85,9 +107,9 @@ color: white;
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>720</x>
-      <y>10</y>
-      <width>281</width>
+      <x>770</x>
+      <y>15</y>
+      <width>331</width>
       <height>51</height>
      </rect>
     </property>
@@ -104,7 +126,7 @@ bold;
 </string>
     </property>
     <property name="text">
-     <string>  KẾ HOẠCH TRONG NGÀY</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;KẾ HOẠCH TRONG NGÀY&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -113,8 +135,8 @@ bold;
    <widget class="QPushButton" name="addButton">
     <property name="geometry">
      <rect>
-      <x>910</x>
-      <y>530</y>
+      <x>1010</x>
+      <y>555</y>
       <width>91</width>
       <height>51</height>
      </rect>
@@ -122,7 +144,6 @@ bold;
     <property name="font">
      <font>
       <pointsize>6</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -137,10 +158,10 @@ bold;
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>83</y>
-      <width>85</width>
-      <height>589</height>
+      <x>0</x>
+      <y>82</y>
+      <width>91</width>
+      <height>621</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -153,17 +174,18 @@ bold;
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>70</y>
-      <width>241</width>
+      <x>965</x>
+      <y>76</y>
+      <width>81</width>
       <height>20</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 13pt</string>
+     <string notr="true">font: 13pt;
+background-color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
-     <string>CHỌN NGÀY</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:700; color:#000000;&quot;&gt;CHỌN NGÀY&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -172,35 +194,35 @@ bold;
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>460</y>
-      <width>55</width>
-      <height>16</height>
+      <x>814</x>
+      <y>456</y>
+      <width>81</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>BẮT ĐẦU</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#ffffff;&quot;&gt;BẮT ĐẦU&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>490</y>
-      <width>61</width>
+      <x>814</x>
+      <y>512</y>
+      <width>81</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>KẾT THÚC</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:700; color:#ffffff;&quot;&gt;KẾT THÚC&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="saveButton">
     <property name="geometry">
      <rect>
-      <x>710</x>
-      <y>610</y>
-      <width>291</width>
+      <x>770</x>
+      <y>622</y>
+      <width>331</width>
       <height>61</height>
      </rect>
     </property>
@@ -211,9 +233,9 @@ bold;
    <widget class="QListWidget" name="tasksListWidget">
     <property name="geometry">
      <rect>
-      <x>720</x>
-      <y>110</y>
-      <width>271</width>
+      <x>770</x>
+      <y>108</y>
+      <width>331</width>
       <height>321</height>
      </rect>
     </property>
@@ -221,9 +243,9 @@ bold;
    <widget class="QLineEdit" name="taskLineEdit">
     <property name="geometry">
      <rect>
-      <x>710</x>
-      <y>530</y>
-      <width>201</width>
+      <x>770</x>
+      <y>555</y>
+      <width>231</width>
       <height>51</height>
      </rect>
     </property>
@@ -231,7 +253,7 @@ bold;
    <widget class="QTimeEdit" name="timeIn">
     <property name="geometry">
      <rect>
-      <x>810</x>
+      <x>925</x>
       <y>450</y>
       <width>111</width>
       <height>31</height>
@@ -241,31 +263,27 @@ bold;
    <widget class="QTimeEdit" name="timeOut">
     <property name="geometry">
      <rect>
-      <x>810</x>
-      <y>490</y>
+      <x>925</x>
+      <y>508</y>
       <width>111</width>
       <height>31</height>
      </rect>
     </property>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1025</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuSeTTime">
-    <property name="title">
-     <string>SeTTime</string>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>831</x>
+      <y>70</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700; color:#ffffff;&quot;&gt;CHỌN NGÀY:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <addaction name="menuSeTTime"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

@@ -23,6 +23,9 @@ styleSheet = '''
 #SAWindow{
     background-image: url(bg.png);
 }
+#SBWindow{
+    background-image: url(bg1.png);
+}
 #AccoutInfoBtn{
     font-size: 20px; height: 40px; 
     width: 200px; 

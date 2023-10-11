@@ -14,7 +14,7 @@ class Window(QMainWindow):
     def __init__(self, username):
         super(Window, self).__init__()
         loadUi("UI.ui", self)
-        self.setFixedSize(1020, 800)
+        self.setFixedSize(1135, 700)
         self.move(300, 0)
         self.setWindowTitle("SeTTime")
         self.setWindowIcon(QtGui.QIcon('logo.png'))
@@ -25,6 +25,8 @@ class Window(QMainWindow):
         self.calendarDateChanged()
         self.saveButton.clicked.connect(self.saveChanges)
         self.addButton.clicked.connect(self.addNewTask)
+
+        self.setObjectName("SBWindow")
 
         self.initMenu()
         self.plan_window = PlanWindow(self)
@@ -106,7 +108,7 @@ class Window(QMainWindow):
     def initMenu(self):
         # Tạo nút
         self.button = QPushButton( self)
-        self.button.move(10, 20)
+        self.button.move(6, 0)
         self.button.setStyleSheet('border: 0px')
         self.button.setIcon(QIcon("menu.png"))
         self.button.setIconSize(QSize(50, 50))
