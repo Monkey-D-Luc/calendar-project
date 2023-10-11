@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QWidget, QMessageBox, QLabel, QPushButton, QGridLayo
 from PyQt5.QtGui import QFont
 from PyQt5.QtSql import QSqlQuery
 from PyQt5 import QtGui
+import sqlite3
 
 
 
@@ -96,6 +97,7 @@ class RegisterWindow(QWidget):
         email = self.email_textbox.text()
         if username and password:
             if self.check_username_available(username):
+                self.SelectPosition(username)
                 self.save_account(username, password, fullname, phone, email)
                 messageBox = QMessageBox()
                 messageBox.setText("Tài khoản đã được tạo thành công.")
@@ -127,6 +129,27 @@ class RegisterWindow(QWidget):
         query.bindValue(3, phone)
         query.bindValue(4, email)
         query.exec_()
+
+    def SelectPosition(self, username):
+        message_box = QMessageBox()
+        message_box.setWindowTitle("Chọn chức vụ")
+        message_box.setText("Chọn chức vụ:")
+
+        manager_button = message_box.addButton("Quản lý", QMessageBox.ActionRole)
+        employee_button = message_box.addButton("Nhân viên", QMessageBox.ActionRole)
+
+        message_box.exec_()
+
+        if message_box.clickedButton() == manager_button:
+            self.SaveManagerAccount(username)
+
+    def SaveManagerAccount(self, username):
+        db = sqlite3.connect("data.db")
+        cursor = db.cursor()
+        query = "INSERT INTO position(username, position) VALUES (?, 'manager');"
+        row = (username,)
+        cursor.execute(query, row)
+        db.commit()
 
 
     def BackToLogin(self):

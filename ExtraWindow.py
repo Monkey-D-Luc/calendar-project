@@ -135,6 +135,15 @@ class PlanWindow(ExtraWindow):
     def InitUI(self):
         self.change_tasks_btn = QPushButton("Chỉnh sửa", self)
         self.change_tasks_btn.clicked.connect(self.ChangeTasksWindow)
+        username = self.parent.GetUsername()
+        db = sqlite3.connect("data.db")
+        cursor = db.cursor()
+        query = "SELECT position FROM position WHERE username = ?;"
+        row = (username,)
+        result = cursor.execute(query, row).fetchone()
+        print(result)
+        if (result == None):
+            self.change_tasks_btn.hide()
 
         self.back_btn.setObjectName("PBtn")
         self.change_tasks_btn.setObjectName("PBtn")
