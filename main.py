@@ -42,6 +42,17 @@ styleSheet = '''
     height: 40px;
     font-size: 30px;
 }
+#PBtn{
+    font-size: 20px; height: 100px; 
+    width: 400px; 
+
+    color: black;
+    background-color: #ffeaa7;
+}
+
+#PWindow{
+    background-image: url(bg4.png);
+}
 
 '''
 

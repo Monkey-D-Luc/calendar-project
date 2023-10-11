@@ -1,9 +1,9 @@
 import sqlite3
 
 from PyQt5 import QtGui
-from PyQt5.QtWidgets import QMainWindow, QPushButton, QWidget, QGridLayout, QHBoxLayout, QLabel, QLineEdit, QMessageBox
+from PyQt5.QtWidgets import  QFormLayout, QListWidget, QMainWindow, QPushButton, QWidget, QGridLayout, QHBoxLayout, QVBoxLayout, QLabel, QLineEdit, QMessageBox, QScrollArea
 from PyQt5.QtGui import QFont, QIcon
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QDate
 
 class ExtraWindow(QMainWindow):
     def __init__(self, parent):
@@ -129,6 +129,88 @@ class PlanWindow(ExtraWindow):
     def __init__(self, parent):
         super().__init__(parent)
         self.setWindowTitle("Kế hoạch chung")
+        self.setObjectName("PWindow")
+        self.InitUI()
+
+    def InitUI(self):
+        self.addtasks_btn = QPushButton("Thêm kế hoạch", self)
+        self.addtasks_btn.clicked.connect(self.OpenAddTasksWindow)
+
+        self.back_btn.setObjectName("PBtn")
+        self.addtasks_btn.setObjectName("PBtn")
+
+        self.back_btn.move(50, 50)
+        self.addtasks_btn.move(300, 50)
+        self.back_btn.resize(150, 50)
+        self.addtasks_btn.resize(150, 50)
+
+        
+        scroll_area = QScrollArea(self)
+        scroll_area.setGeometry(50, 200, 920, 550)
+        scroll_area.horizontalScrollBar().setEnabled(False)
+
+        scroll_content = QWidget()
+        scroll_layout = QVBoxLayout(scroll_content)
+
+        # data = [
+        #     ("10 - 11 - 2023", ["Công nghệ phần mềm - Chương 1: Xác định yêu cầu", "Công nghệ phần mềm - Chương 2: Đặc tả", "Công nghệ phần mềm - Chương 3: Thiết kế"]),
+        #     ("11 - 11 - 2023", ["Công nghệ phần mềm - Chương 4: Cài đặt", "Công nghệ phần mềm - Chương 5: tích hợp", "Công nghệ phần mềm - Chương 6: Bảo trì"]),
+        #     ("12 - 11 - 2023", ["Công nghệ phần mềm - Chương 7: Thôi sử dụng","a","a","a","a","a","a","a","a","a","a","a","a","a"]),
+        # ]
+
+        data = self.fetch_data_from_database()
+
+        for date, tasks in data:
+            label = self.create_task_label(date, tasks)
+            scroll_layout.addWidget(label)
+
+        scroll_area.setWidget(scroll_content)
+
+    def OpenAddTasksWindow(self):
+        self.hide()
+        self.addTasksWindow = AddTasksWindow(self)
+        self.addTasksWindow.show()
+
+    def create_task_label(self, date, tasks):
+        label = QLabel()
+        font = QFont("Arial", 14)  # Chọn phông chữ và kích thước lớn hơn
+
+        text = f"<h3 style='background-color: lightblue; width: 920px;'><span style='background-color: lightblue; color: black'>____________{date}________________________________________________</span></h3><ul style='font-size: 20px'>"
+        i = 0
+        for task in tasks:
+            if i % 2 != 0:
+                text += f"<li style='background-color: #fdcb6e;'>_____________{task}________________________________________________________________</li>"
+            else:
+                text += f"<li style='background-color: #ffeaa7;'>_____________{task}________________________________________________________________</li>"
+            i += 1
+        text += "</ul>"
+
+        label.setText(text)
+        label.setFont(font)  # Đặt phông chữ cho label
+        label.resize(700, 50)
+        return label
+
+    def fetch_data_from_database(self):
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+
+        # Truy vấn dữ liệu từ bảng plans
+        cursor.execute("SELECT date, task FROM plans ORDER BY stt")
+        rows = cursor.fetchall()
+
+        connection.close()
+
+        data = {}
+        for date, task in rows:
+            if date not in data:
+                data[date] = []
+            data[date].append(task)
+
+        result = [(date, tasks) for date, tasks in data.items()]
+        return result
+
+
+
 
 class ChangePasswordWindow(QWidget):
     def __init__(self, username):
@@ -225,3 +307,117 @@ class ChangePasswordWindow(QWidget):
                 self.error_message.setText("Mật khẩu không trùng khớp!")
         else:
             self.error_message.setText("Hãy nhập đầy đủ các trường")
+
+class AddTasksWindow(QMainWindow):
+    def __init__(self, previusWindow):
+        super().__init__()
+        self.setWindowTitle("Add Tasks")
+        self.setGeometry(100, 100, 400, 400)
+
+        self.previusWindow = previusWindow
+        
+        # Database connection
+        self.conn = sqlite3.connect('data.db')
+        self.cursor = self.conn.cursor()
+        
+        self.initUI()
+    
+    def initUI(self):
+        # Date input fields
+        date_label = QLabel("Ngày:")
+        self.day_input = QLineEdit()
+        self.month_input = QLineEdit()
+        self.year_input = QLineEdit()
+        
+        # Task list
+        self.task_list = QListWidget()
+        
+        # Add Task button
+        add_task_button = QPushButton("Hiện nhiệm vụ")
+        add_task_button.clicked.connect(self.add_task)
+        
+        # Delete Task button
+        delete_task_button = QPushButton("Xoá nhiệm vu")
+        delete_task_button.clicked.connect(self.delete_task)
+        
+        # New Task input field
+        new_task_label = QLabel("Nhiệm vụ mới:")
+        self.new_task_input = QLineEdit()
+        
+        # Add New Task button
+        add_new_task_button = QPushButton("Thêm")
+        add_new_task_button.clicked.connect(self.add_new_task)
+        
+        # Layout
+        form_layout = QFormLayout()
+        form_layout.addRow(date_label, self.day_input)
+        form_layout.addRow(QLabel("Tháng:"), self.month_input)
+        form_layout.addRow(QLabel("Năm:"), self.year_input)
+        
+        hbox1 = QHBoxLayout()
+        hbox1.addWidget(add_task_button)
+        hbox1.addWidget(delete_task_button)
+        
+        hbox2 = QHBoxLayout()
+        hbox2.addWidget(new_task_label)
+        hbox2.addWidget(self.new_task_input)
+        
+        vbox = QVBoxLayout()
+        vbox.addLayout(form_layout)
+        vbox.addWidget(self.task_list)
+        vbox.addLayout(hbox1)
+        vbox.addLayout(hbox2)
+        vbox.addWidget(add_new_task_button)
+        
+        central_widget = QWidget()
+        central_widget.setLayout(vbox)
+        self.setCentralWidget(central_widget)
+    
+    def add_task(self):
+        day = self.day_input.text()
+        month = self.month_input.text()
+        year = self.year_input.text()
+        selected_date = f"{day}-{month}-{year}"
+        
+        # Fetch tasks for the selected date
+        self.cursor.execute("SELECT task FROM plans WHERE date=?", (selected_date,))
+        tasks = self.cursor.fetchall()
+        
+        self.task_list.clear()
+        for task in tasks:
+            self.task_list.addItem(task[0])
+    
+    def delete_task(self):
+        selected_task = self.task_list.currentItem()
+        if selected_task:
+            task_to_delete = selected_task.text()
+            
+            # Delete the selected task
+            self.cursor.execute("DELETE FROM plans WHERE task=?", (task_to_delete,))
+            self.conn.commit()
+            self.add_task()  # Refresh task list
+    
+    def add_new_task(self):
+        day = self.day_input.text()
+        month = self.month_input.text()
+        year = self.year_input.text()
+        selected_date = QDate(int(year), int(month), int(day))
+        
+        new_task = self.new_task_input.text()
+        
+        if day and month and year and new_task:
+            # Calculate 'stt' based on the selected date
+            #selected_date = datetime.strptime(selected_date, "%d-%m-%y")
+            reference_date = QDate(2020, 1, 1)
+            stt = reference_date.daysTo(selected_date)
+            selected_date = f"{day}-{month}-{year}"
+            
+            # Insert the new task into the database
+            self.cursor.execute("INSERT INTO plans (stt, date, task) VALUES (?, ?, ?)", (stt, selected_date, new_task))
+            self.conn.commit()
+            self.new_task_input.clear()
+            self.add_task()  # Refresh task list
+
+    def closeEvent(self, event):
+        self.previusWindow.InitUI()
+        self.previusWindow.show()
