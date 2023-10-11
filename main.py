@@ -20,8 +20,16 @@ styleSheet = '''
 #MenuD:selected{
     background-color: #636e72;
 }
+#SAWindow{
+    background-image: url(bg.png);
+}
 #AccoutInfoBtn{
-    font-size: 20px; height: 40px; width: 200px; margin-right: 100px;
+    font-size: 20px; height: 40px; 
+    width: 200px; 
+    margin-right: 100px;
+    margin-left: 50px;
+    color: black;
+    background-color: #ffeaa7;
 }
 #CPTextBox{
     height: 30px;
