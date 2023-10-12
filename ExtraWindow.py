@@ -184,7 +184,7 @@ class PlanWindow(ExtraWindow):
         label = QLabel()
         font = QFont("Arial", 14)  # Chọn phông chữ và kích thước lớn hơn
 
-        text = f"<h3 style='background-color: lightblue; width: 920px;'><span style='background-color: lightblue; color: black'>____________{date}________________________________________________</span></h3><ul style='font-size: 20px'>"
+        text = f"<h3 style='background-color: lightblue; width: 920px;'><span style='background-color: lightblue; color: black'>____________{date}___________________________________________________________</span></h3><ul style='font-size: 20px'>"
         i = 0
         for task in tasks:
             if i % 2 != 0:
