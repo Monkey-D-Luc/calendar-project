@@ -1,6 +1,7 @@
 Đây là project nhóm đầu tiên mà mình làm nên có gì thiếu sót xin thông cảm. 
 Project nhỏ này tạo ra để giúp ta có thể lập kế hoạch và đặt lịch. 
 Các giao diện chưa được đồng nhất về sắc màu. Code vẫn đi sao chép và tham khảo từ nhiều nguồn.
+
 -Giao diện đăng nhập : 
 Hiện tại database tên tài khoản và mật khẩu để đều là a.
 
